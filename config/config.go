@@ -11,9 +11,11 @@ type SystemConfig struct {
 	HttpPort  uint64 `env:"HTTP_PORT,required,notEmpty"`
 	ServiceID string `env:"SERVICE_ID,required,notEmpty"`
 
-	KafkaConfig      KafkaConfig           `envPrefix:"KAFKA_"`
-	KafkaTopicConfig KafkaTopicConfig      `envPrefix:"TOPICS_"`
-	MongoDBConfig    mongodb.MongoDBConfig `envPrefix:"MONGODB_"`
+	KafkaConfig          KafkaConfig           `envPrefix:"KAFKA_"`
+	KafkaTopicConfig     KafkaTopicConfig      `envPrefix:"TOPICS_"`
+	MongoDBConfig        mongodb.MongoDBConfig `envPrefix:"MONGODB_"`
+	InternalToken        string                `env:"INTERNAL_TOKEN,required,notEmpty"`
+	RewardIntegrationUrl string                `env:"REWARD_INTEGRATION_URL,required,notEmpty"`
 }
 
 var configSingletonObj *SystemConfig

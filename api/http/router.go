@@ -27,7 +27,11 @@ func (app *httpServ) InitRouters(e *echo.Echo) {
 		return c.JSON(http.StatusInternalServerError, resp.BuildErrorResp(resp.ErrSystem, "", resp.LangEN))
 	})
 
-	//point router
-	controller := routers.NewProfileController(e, app.pointHandler)
+	//profile router
+	controller := routers.NewProfileController(e, app.profileHandler)
 	controller.SetupProfileRoutes()
+
+	//point router
+	pointController := routers.NewPointController(e, app.pointHandler)
+	pointController.SetupPointRoutes()
 }

@@ -35,11 +35,14 @@ func main() {
 		log.Fatal().Msgf("connect mongodb failed! %s", err)
 	}
 
+	// Initialize clients
+	clients := initialize.NewClients()
+
 	// Initialize repositories
 	repo := initialize.NewRepositories(dbStorage)
 
 	// Initialize services
-	service := initialize.NewServices(conf, repo)
+	service := initialize.NewServices(conf, clients, repo)
 
 	// Initialize handlers
 	handler := initialize.NewHandlers(service)
@@ -49,7 +52,7 @@ func main() {
 		msgBroker.Start(ctx)
 	}()
 
-	srv := apiHttp.NewHttpServe(conf, handler.ProfileHandler)
+	srv := apiHttp.NewHttpServe(conf, handler.ProfileHandler, handler.PointHandler)
 	srv.Start(e)
 
 	// handle graceful shutdown

@@ -8,6 +8,7 @@ import (
 
 type Handlers struct {
 	ProfileHandler   *handlers.ProfileHandler
+	PointHandler     *handlers.PointHandler
 	OrderHandler     *order.OrderHandler
 	CorePointHandler *core_handle_point.CorePointHandler
 }
@@ -17,6 +18,9 @@ func NewHandlers(services *Services) *Handlers {
 	profileHandler := handlers.NewProfileHandler(
 		services.profileService,
 	)
+
+	pointHandler := handlers.NewPointHandler(
+		services.pointService)
 
 	orderHandler := order.NewOrderHandler(
 		services.profileService,
@@ -28,6 +32,7 @@ func NewHandlers(services *Services) *Handlers {
 
 	return &Handlers{
 		ProfileHandler:   profileHandler,
+		PointHandler:     pointHandler,
 		OrderHandler:     orderHandler,
 		CorePointHandler: corePointHandler,
 	}

@@ -26,21 +26,24 @@ type HttpServInterface interface {
 }
 
 type httpServ struct {
-	conf         *config.SystemConfig
-	pointHandler *handlers.ProfileHandler
+	conf           *config.SystemConfig
+	profileHandler *handlers.ProfileHandler
+	pointHandler   *handlers.PointHandler
 	//coreHandler    *order.OrderHandler
 	//earnHandler    *core_handle_point.CorePointHandler
 }
 
 func NewHttpServe(
 	conf *config.SystemConfig,
-	pointHandler *handlers.ProfileHandler,
+	profileHandler *handlers.ProfileHandler,
+	pointHandler *handlers.PointHandler,
 	// coreHandler *order.OrderHandler,
 	// earnHandler *core_handle_point.CorePointHandler,
 ) *httpServ {
 	return &httpServ{
-		conf:         conf,
-		pointHandler: pointHandler,
+		conf:           conf,
+		profileHandler: profileHandler,
+		pointHandler:   pointHandler,
 		//coreHandler:    coreHandler,
 		//earnHandler:    earnHandler,
 	}
