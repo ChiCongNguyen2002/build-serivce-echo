@@ -1,8 +1,8 @@
 package client
 
 import (
-	"BuildService/common/logger"
-	"BuildService/common/utils"
+	"build-service/common/logger"
+	"build-service/common/utils"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"

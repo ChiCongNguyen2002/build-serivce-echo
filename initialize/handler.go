@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"BuildService/api/http/handlers"
-	"BuildService/api/msgbroker/consumer/core_handle_point"
-	"BuildService/api/msgbroker/consumer/order"
+	"build-service/api/http/handlers"
+	"build-service/api/msgbroker/consumer/core_handle_point"
+	"build-service/api/msgbroker/consumer/order"
 )
 
 type Handlers struct {

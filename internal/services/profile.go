@@ -1,35 +1,36 @@
 package services
 
 import (
-	"BuildService/common/logger"
-	"BuildService/config"
-	modelsServ "BuildService/internal/domains"
-	"BuildService/pkg/helpers/adapters"
-	"BuildService/pkg/helpers/resp"
-	"BuildService/repositories/mongo_tx"
-	"BuildService/repositories/user_transaction_history"
+	"build-service/common/logger"
+	"build-service/config"
+	modelsServ "build-service/internal/domains"
+	"build-service/pkg/helpers/adapters"
+	"build-service/pkg/helpers/resp"
+	"build-service/repositories/mongotx"
+	"build-service/repositories/user_transaction_history"
 	"context"
-	"go.mongodb.org/mongo-driver/mongo"
 	"strings"
 	"time"
+
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type ProfileService struct {
 	conf        *config.SystemConfig
-	mongoRepo   mongo_tx.IMongoTxRepository
+	mongoRepo   mongotx.IMongoTxRepository
 	profileRepo user_transaction_history.IUserTransactionHistoryRepo
 }
 
 type IProfileService interface {
 	GetUserHistoryByProfile(ctx context.Context, req modelsServ.GetUserTransactionHistoryReq) ([]modelsServ.UserTransactionHistory, int64, *resp.CustomError)
-	CreateUserTransactionHistory(ctx context.Context, order modelsServ.UserTransactionHistory) (modelsServ.UserTransactionHistory, *resp.CustomError)
-	UpdateUserTransactionHistoryByProfile(ctx context.Context, order modelsServ.UserTransactionHistory, profileID string) (modelsServ.UserTransactionHistory, *resp.CustomError)
+	CreateUserTransactionHistory(ctx context.Context, order *modelsServ.UserTransactionHistory) (*modelsServ.UserTransactionHistory, *resp.CustomError)
+	UpdateUserTransactionHistoryByProfile(ctx context.Context, order *modelsServ.UserTransactionHistory, profileID string) (*modelsServ.UserTransactionHistory, *resp.CustomError)
 	DeleteUserTransactionHistoryByProfile(ctx context.Context, profileID string) *resp.CustomError
 	CreateOrderTransactionPoint(ctx context.Context, order *modelsServ.OrderSuccessEvent) *resp.CustomError
 	CompleteTransactionPoint(ctx context.Context, order *modelsServ.EarnPointOrderEvent) *resp.CustomError
 }
 
-func NewProfileService(conf *config.SystemConfig, mongoRepo mongo_tx.IMongoTxRepository, profileRepo user_transaction_history.IUserTransactionHistoryRepo) IProfileService {
+func NewProfileService(conf *config.SystemConfig, mongoRepo mongotx.IMongoTxRepository, profileRepo user_transaction_history.IUserTransactionHistoryRepo) IProfileService {
 	return &ProfileService{
 		conf:        conf,
 		mongoRepo:   mongoRepo,
@@ -37,7 +38,7 @@ func NewProfileService(conf *config.SystemConfig, mongoRepo mongo_tx.IMongoTxRep
 	}
 }
 
-func (p ProfileService) GetUserHistoryByProfile(ctx context.Context, req modelsServ.GetUserTransactionHistoryReq) ([]modelsServ.UserTransactionHistory, int64, *resp.CustomError) {
+func (p *ProfileService) GetUserHistoryByProfile(ctx context.Context, req modelsServ.GetUserTransactionHistoryReq) ([]modelsServ.UserTransactionHistory, int64, *resp.CustomError) {
 	var profileID string
 	var txTypes []string
 	var recentMonth time.Time
@@ -65,7 +66,7 @@ func (p ProfileService) GetUserHistoryByProfile(ctx context.Context, req modelsS
 	return pointTxsServ, totalTxs, nil
 }
 
-func (p ProfileService) CreateUserTransactionHistory(ctx context.Context, order modelsServ.UserTransactionHistory) (modelsServ.UserTransactionHistory, *resp.CustomError) {
+func (p *ProfileService) CreateUserTransactionHistory(ctx context.Context, order *modelsServ.UserTransactionHistory) (*modelsServ.UserTransactionHistory, *resp.CustomError) {
 	pointTxsServ := adapters.AdapterProfile{}.ConvDomainToRepo(order)
 	userHistory, err := p.profileRepo.CreateUserTransactionHistory(ctx, &pointTxsServ)
 	if err != nil {
@@ -75,7 +76,7 @@ func (p ProfileService) CreateUserTransactionHistory(ctx context.Context, order 
 	return pointTxsServToDomain, nil
 }
 
-func (p ProfileService) UpdateUserTransactionHistoryByProfile(ctx context.Context, order modelsServ.UserTransactionHistory, profileID string) (modelsServ.UserTransactionHistory, *resp.CustomError) {
+func (p *ProfileService) UpdateUserTransactionHistoryByProfile(ctx context.Context, order *modelsServ.UserTransactionHistory, profileID string) (*modelsServ.UserTransactionHistory, *resp.CustomError) {
 	pointTxsServ := adapters.AdapterProfile{}.ConvDomainToRepo(order)
 	userHistory, err := p.profileRepo.UpdateUserTransactionHistoryByProfile(ctx, &pointTxsServ, profileID)
 	if err != nil {
@@ -85,7 +86,7 @@ func (p ProfileService) UpdateUserTransactionHistoryByProfile(ctx context.Contex
 	return pointTxsServToDomain, nil
 }
 
-func (p ProfileService) DeleteUserTransactionHistoryByProfile(ctx context.Context, profileID string) *resp.CustomError {
+func (p *ProfileService) DeleteUserTransactionHistoryByProfile(ctx context.Context, profileID string) *resp.CustomError {
 	err := p.profileRepo.DeleteUserTransactionHistoryByProfile(ctx, profileID)
 	if err != nil {
 		return nil

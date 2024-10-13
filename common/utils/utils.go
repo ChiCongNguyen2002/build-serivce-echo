@@ -9,14 +9,15 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/segmentio/ksuid"
-	"github.com/tidwall/gjson"
-	"golang.org/x/text/unicode/norm"
 	"reflect"
 	"regexp"
 	"sort"
 	"strings"
 	"unicode"
+
+	"github.com/segmentio/ksuid"
+	"github.com/tidwall/gjson"
+	"golang.org/x/text/unicode/norm"
 )
 
 const (

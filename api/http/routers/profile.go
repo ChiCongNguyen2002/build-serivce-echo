@@ -1,7 +1,8 @@
 package routers
 
 import (
-	"BuildService/api/http/handlers"
+	"build-service/api/http/handlers"
+
 	"github.com/labstack/echo/v4"
 )
 

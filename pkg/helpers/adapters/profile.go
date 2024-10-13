@@ -1,10 +1,10 @@
 package adapters
 
 import (
-	modelsHandler "BuildService/api/http/models"
-	model2 "BuildService/api/msgbroker/models"
-	modelsServ "BuildService/internal/domains"
-	modelsRepo "BuildService/repositories/user_transaction_history"
+	modelsHandler "build-service/api/http/models"
+	model2 "build-service/api/msgbroker/models"
+	modelsServ "build-service/internal/domains"
+	modelsRepo "build-service/repositories/user_transaction_history"
 )
 
 type AdapterProfile struct{}
@@ -49,7 +49,7 @@ func (a AdapterProfile) ConvRepo2DomainServArrayUserTransactionHistoryTx(listDat
 	return data
 }
 
-func (a AdapterProfile) ConvDomainToRepo(d modelsServ.UserTransactionHistory) (data modelsRepo.UserTransactionHistory) {
+func (a AdapterProfile) ConvDomainToRepo(d *modelsServ.UserTransactionHistory) (data modelsRepo.UserTransactionHistory) {
 	data = modelsRepo.UserTransactionHistory{
 		TransactionID:        d.TransactionID,
 		TransactionType:      d.TransactionType,
@@ -69,8 +69,8 @@ func (a AdapterProfile) ConvDomainToRepo(d modelsServ.UserTransactionHistory) (d
 	return data
 }
 
-func (a AdapterProfile) ConvRepoToDomain(d *modelsRepo.UserTransactionHistory) (data modelsServ.UserTransactionHistory) {
-	data = modelsServ.UserTransactionHistory{
+func (a AdapterProfile) ConvRepoToDomain(d *modelsRepo.UserTransactionHistory) (data *modelsServ.UserTransactionHistory) {
+	data = &modelsServ.UserTransactionHistory{
 		TransactionID:        d.TransactionID,
 		TransactionType:      d.TransactionType,
 		ProfileID:            d.ProfileID,

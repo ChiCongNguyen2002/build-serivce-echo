@@ -1,6 +1,6 @@
 package initialize
 
-import "BuildService/client/receiver"
+import "build-service/client/receiver"
 
 type Clients struct {
 	ReceiverClient receiver.IReceiverClient

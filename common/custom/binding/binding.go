@@ -1,7 +1,8 @@
 package binding
 
 import (
-	validate2 "BuildService/common/custom/validate"
+	validate2 "build-service/common/custom/validate"
+
 	"github.com/labstack/echo/v4"
 )
 

@@ -1,26 +1,15 @@
 package logger
 
 import (
+	"build-service/common/utils"
 	"context"
 	"fmt"
-	"github.com/rs/zerolog"
 	"io"
 	"runtime"
 	"strings"
+
+	"github.com/rs/zerolog"
 )
-
-type TraceInfo struct {
-	RequestID string `json:"request_id"`
-}
-
-func GetRequestIdByContext(ctx context.Context) *TraceInfo {
-	value := ctx.Value(KeyTraceInfo)
-	traceInfo, ok := value.(TraceInfo)
-	if !ok {
-		return nil
-	}
-	return &traceInfo
-}
 
 type Logger struct {
 	logger zerolog.Logger
@@ -28,11 +17,26 @@ type Logger struct {
 
 // ------------------- Logger -------------------
 
+func getFullStack() string {
+	buf := make([]byte, 1<<16)
+	stackSize := runtime.Stack(buf, true)
+	stack := fmt.Sprintf("%s", buf[0:stackSize])
+	stackTemp := strings.Split(stack, "\n")
+	stackFile := fmt.Sprintf("file: %s, func: %s", strings.TrimSpace(stackTemp[6]), strings.TrimSpace(stackTemp[5]))
+	return stackFile
+}
+
+func (l *Logger) StackTrace() *Logger {
+	stack := getFullStack()
+	newLg := l.logger.With().Str(KeyFileError, stack).Logger()
+	return &Logger{newLg}
+}
+
 func (l *Logger) AddTraceInfoContextRequest(ctx context.Context) *Logger {
 	newLg := l.logger.With().Interface("caller", l.GetCaller()).Logger()
-	traceInfo := GetRequestIdByContext(ctx)
+	traceInfo := utils.GetRequestIdByContext(ctx)
 	if traceInfo != nil {
-		newLg = newLg.With().Interface(KeyTraceInfo, traceInfo).Logger()
+		newLg = newLg.With().Interface(utils.KeyTraceInfo, traceInfo).Logger()
 	}
 	return &Logger{newLg}
 }
@@ -54,8 +58,6 @@ func (l Logger) Hook(hooks ...zerolog.Hook) Logger {
 }
 
 // ------------------- Logger -------------------
-
-// ------------------- Context -------------------
 
 // ------------------- Context -------------------
 

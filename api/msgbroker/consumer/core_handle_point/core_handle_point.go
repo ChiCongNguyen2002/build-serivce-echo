@@ -1,10 +1,10 @@
 package core_handle_point
 
 import (
-	"BuildService/api/msgbroker/models"
-	"BuildService/common/logger"
-	"BuildService/internal/services"
-	"BuildService/pkg/helpers/adapters"
+	"build-service/api/msgbroker/models"
+	"build-service/common/logger"
+	"build-service/internal/services"
+	"build-service/pkg/helpers/adapters"
 	"context"
 	"errors"
 )

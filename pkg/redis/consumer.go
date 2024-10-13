@@ -1,10 +1,11 @@
 package redis
 
 import (
-	"BuildService/pkg/queue"
+	"build-service/pkg/queue"
 	"context"
-	"github.com/redis/go-redis/v9"
 	"sync"
+
+	"github.com/redis/go-redis/v9"
 )
 
 type Consumer struct {

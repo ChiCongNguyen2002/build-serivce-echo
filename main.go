@@ -1,18 +1,18 @@
 package main
 
 import (
-	apiHttp "BuildService/api/http"
-	msgbroker "BuildService/api/msgbroker/consumer"
-	"BuildService/common/logger"
-	"BuildService/common/mongodb"
-	"BuildService/config"
-	"BuildService/initialize"
+	apiHttp "build-service/api/http"
+	"build-service/common/logger"
+	"build-service/common/mongodb"
+	"build-service/config"
+	"build-service/initialize"
 	"context"
-	"github.com/labstack/echo/v4"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -47,10 +47,10 @@ func main() {
 	// Initialize handlers
 	handler := initialize.NewHandlers(service)
 
-	go func() {
-		msgBroker := msgbroker.NewMsgBroker(conf, handler.OrderHandler, handler.CorePointHandler)
-		msgBroker.Start(ctx)
-	}()
+	//go func() {
+	//	msgBroker := msgbroker.NewMsgBroker(conf, handler.OrderHandler, handler.CorePointHandler)
+	//	msgBroker.Start(ctx)
+	//}()
 
 	srv := apiHttp.NewHttpServe(conf, handler.ProfileHandler, handler.PointHandler)
 	srv.Start(e)

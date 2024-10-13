@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"BuildService/common/mongodb"
-	"BuildService/repositories/mongo_tx"
-	"BuildService/repositories/user_transaction_history"
+	"build-service/common/mongodb"
+	"build-service/repositories/mongotx"
+	"build-service/repositories/user_transaction_history"
 )
 
 var (
@@ -12,13 +12,13 @@ var (
 
 type Repositories struct {
 	IUserTransactionHistoryRepo user_transaction_history.IUserTransactionHistoryRepo
-	IMongoTxRepository          mongo_tx.IMongoTxRepository
+	IMongoTxRepository          mongotx.IMongoTxRepository
 }
 
 func NewRepositories(dbStorage *mongodb.DatabaseStorage) *Repositories {
 	repositories = &Repositories{
 		IUserTransactionHistoryRepo: user_transaction_history.NewRepoUserTransactionHistory(dbStorage),
-		IMongoTxRepository:          mongo_tx.IMongoTxRepository(dbStorage),
+		IMongoTxRepository:          mongotx.IMongoTxRepository(dbStorage),
 	}
 	return repositories
 }

@@ -1,13 +1,14 @@
 package http
 
 import (
-	"BuildService/api/http/handlers"
-	"BuildService/common/logger"
-	"BuildService/config"
+	"build-service/api/http/handlers"
+	"build-service/common/logger"
+	"build-service/config"
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"net/http"
 	"sync"
+
+	"github.com/labstack/echo/v4"
 )
 
 var (

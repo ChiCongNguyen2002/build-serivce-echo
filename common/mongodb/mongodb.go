@@ -1,17 +1,18 @@
 package mongodb
 
 import (
-	"BuildService/common/logger"
+	"build-service/common/logger"
 	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"strings"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.mongodb.org/mongo-driver/mongo/writeconcern"
-	"strings"
-	"time"
 )
 
 type DatabaseStorage struct {

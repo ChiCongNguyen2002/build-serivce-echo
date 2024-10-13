@@ -1,10 +1,11 @@
 package user_transaction_history
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 type UserTransactionHistory struct {
@@ -30,13 +31,6 @@ func (r UserTransactionHistory) CollectionName() string {
 
 func (r UserTransactionHistory) IndexModels() []mongo.IndexModel {
 	return []mongo.IndexModel{
-		{
-			Keys: bson.D{
-				{Key: FUserTransactionHistoryTransactionType, Value: 1},
-				{Key: FUserTransactionHistoryStatus, Value: 1},
-				{Key: FUserTransactionHistoryCreatedAt, Value: -1},
-			},
-		},
 		{
 			Keys: bson.D{
 				{Key: FUserTransactionHistoryTransactionID, Value: 1},

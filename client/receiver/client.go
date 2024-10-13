@@ -1,11 +1,11 @@
 package receiver
 
 import (
-	"BuildService/common/client"
-	"BuildService/common/utils"
-	"BuildService/config"
-	"BuildService/internal/domains"
-	"BuildService/pkg/helpers/constants"
+	"build-service/common/client"
+	"build-service/common/utils"
+	"build-service/config"
+	"build-service/internal/domains"
+	"build-service/pkg/helpers/constants"
 	"context"
 	"fmt"
 	"sync"

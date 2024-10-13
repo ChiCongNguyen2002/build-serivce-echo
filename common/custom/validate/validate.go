@@ -2,11 +2,12 @@ package validate
 
 import (
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"reflect"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type Validate struct {

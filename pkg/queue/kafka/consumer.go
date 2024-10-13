@@ -1,17 +1,18 @@
 package kafka
 
 import (
-	"BuildService/common/logger"
-	"BuildService/common/utils"
-	"BuildService/config"
-	"BuildService/pkg/queue"
+	"build-service/common/logger"
+	"build-service/common/utils"
+	"build-service/config"
+	"build-service/pkg/queue"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"sync"
 	"time"
+
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 )
 
 type ConsumerInterface interface {

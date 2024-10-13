@@ -1,8 +1,9 @@
-package mongo_tx
+package mongotx
 
 import (
-	"BuildService/common/mongodb"
+	"build-service/common/mongodb"
 	"context"
+
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

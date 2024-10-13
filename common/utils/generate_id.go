@@ -5,11 +5,12 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
-	"github.com/sony/sonyflake"
 	"math"
 	"math/big"
 	"sync"
 	"time"
+
+	"github.com/sony/sonyflake"
 )
 
 const (

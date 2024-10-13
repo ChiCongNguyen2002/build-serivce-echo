@@ -1,14 +1,15 @@
 package handlers
 
 import (
-	"BuildService/api/http/models"
-	"BuildService/common/custom/binding"
-	"BuildService/internal/services"
-	"BuildService/pkg/helpers/adapters"
-	"BuildService/pkg/helpers/resp"
+	"build-service/api/http/models"
+	"build-service/common/custom/binding"
+	"build-service/internal/services"
+	"build-service/pkg/helpers/adapters"
+	"build-service/pkg/helpers/resp"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
-	"net/http"
 )
 
 type ProfileHandler struct {
@@ -52,7 +53,7 @@ func (h *ProfileHandler) CreateUserTransactionHistory(c echo.Context) error {
 	}
 
 	dataDomain := adapters.AdapterProfile{}.ConvModelToDomainUserTransactionHistoryTx(req)
-	data, err := h.profileService.CreateUserTransactionHistory(ctx, *dataDomain)
+	data, err := h.profileService.CreateUserTransactionHistory(ctx, dataDomain)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to create user transaction history")
 		return c.JSON(http.StatusNotFound, resp.BuildErrorResp(err.ErrorCode, err.Description, resp.LangEN))
@@ -68,7 +69,7 @@ func (h *ProfileHandler) UpdateUserTransactionHistory(c echo.Context) error {
 	}
 
 	dataDomain := adapters.AdapterProfile{}.ConvModelToDomainUserTransactionHistoryTx(req)
-	data, err := h.profileService.UpdateUserTransactionHistoryByProfile(ctx, *dataDomain, dataDomain.ProfileID)
+	data, err := h.profileService.UpdateUserTransactionHistoryByProfile(ctx, dataDomain, dataDomain.ProfileID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, resp.BuildErrorResp(err.ErrorCode, err.Description, resp.LangEN))
 	}

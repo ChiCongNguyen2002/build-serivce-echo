@@ -1,12 +1,12 @@
 package services
 
 import (
-	"BuildService/client/receiver"
-	"BuildService/common/logger"
-	"BuildService/common/utils"
-	"BuildService/config"
-	modelsServ "BuildService/internal/domains"
-	"BuildService/pkg/helpers/resp"
+	"build-service/client/receiver"
+	"build-service/common/logger"
+	"build-service/common/utils"
+	"build-service/config"
+	modelsServ "build-service/internal/domains"
+	"build-service/pkg/helpers/resp"
 	"context"
 	"encoding/json"
 	"time"
@@ -18,7 +18,7 @@ type PointService struct {
 }
 
 type IPointService interface {
-	CreatePointTransaction(ctx context.Context, order modelsServ.Order) *resp.CustomError
+	CreatePointTransaction(ctx context.Context, order *modelsServ.Order) *resp.CustomError
 }
 
 func NewPointService(
@@ -31,7 +31,7 @@ func NewPointService(
 	}
 }
 
-func (s *PointService) CreatePointTransaction(ctx context.Context, order modelsServ.Order) *resp.CustomError {
+func (s *PointService) CreatePointTransaction(ctx context.Context, order *modelsServ.Order) *resp.CustomError {
 	log := logger.GetLogger().AddTraceInfoContextRequest(ctx)
 	log.Info().Interface("transaction", order).Msg("CreateAdminPointTransaction")
 

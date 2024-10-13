@@ -1,12 +1,13 @@
 package kafka
 
 import (
-	"BuildService/common/logger"
-	"BuildService/common/utils"
-	"BuildService/config"
+	"build-service/common/logger"
+	"build-service/common/utils"
+	"build-service/config"
 	"context"
 	"encoding/json"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 )
 
 type ProducerInterface interface {

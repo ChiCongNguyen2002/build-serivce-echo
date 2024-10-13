@@ -1,13 +1,14 @@
 package handlers
 
 import (
-	"BuildService/api/http/models"
-	"BuildService/common/custom/binding"
-	"BuildService/internal/services"
-	"BuildService/pkg/helpers/adapters"
-	"BuildService/pkg/helpers/resp"
-	"github.com/labstack/echo/v4"
+	"build-service/api/http/models"
+	"build-service/common/custom/binding"
+	"build-service/internal/services"
+	"build-service/pkg/helpers/adapters"
+	"build-service/pkg/helpers/resp"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type PointHandler struct {
@@ -22,7 +23,7 @@ func NewPointHandler(pointService services.IPointService) *PointHandler {
 
 func (h *PointHandler) CreatePointTransaction(c echo.Context) error {
 	ctx := c.Request().Context()
-	var req models.OrderRequest
+	var req *models.OrderRequest
 	if err := binding.GetBinding().Bind(c, &req); err != nil {
 		return c.JSON(http.StatusBadRequest, resp.BuildErrorResp(resp.ErrDataInvalid, err.Error(), resp.LangEN))
 	}

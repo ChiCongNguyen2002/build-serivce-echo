@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"BuildService/config"
-	"BuildService/internal/services"
+	"build-service/config"
+	"build-service/internal/services"
 )
 
 type Services struct {

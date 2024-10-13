@@ -1,8 +1,9 @@
 package config
 
 import (
-	logger2 "BuildService/common/logger"
-	"BuildService/common/mongodb"
+	logger2 "build-service/common/logger"
+	"build-service/common/mongodb"
+
 	"github.com/caarlos0/env/v7"
 )
 

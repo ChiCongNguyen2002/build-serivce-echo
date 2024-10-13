@@ -1,12 +1,13 @@
 package redis
 
 import (
-	"BuildService/common/logger"
-	"BuildService/config"
+	"build-service/common/logger"
+	"build-service/config"
 	"context"
 	"encoding/json"
-	"github.com/redis/go-redis/v9"
 	"time"
+
+	"github.com/redis/go-redis/v9"
 )
 
 type Client struct {

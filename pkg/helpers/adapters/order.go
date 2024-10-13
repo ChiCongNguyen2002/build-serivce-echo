@@ -1,13 +1,13 @@
 package adapters
 
 import (
-	"BuildService/api/msgbroker/models"
+	"build-service/api/msgbroker/models"
 	"time"
 )
 
 type AdapterOrderPoint struct{}
 
-func (a AdapterOrderPoint) ConvertOrderEventDataToUserHistory(earnData models.OrderEventData, rawData models.RawData) models.OrderSuccessEvent {
+func (a AdapterOrderPoint) ConvertOrderEventDataToUserHistory(earnData *models.OrderEventData, rawData models.RawData) models.OrderSuccessEvent {
 	sourceTime := time.UnixMilli(earnData.CreateTime)
 	return models.OrderSuccessEvent{
 		ProfileID:            earnData.ProfileID,
@@ -23,7 +23,7 @@ func (a AdapterOrderPoint) ConvertOrderEventDataToUserHistory(earnData models.Or
 	}
 }
 
-func (a AdapterOrderPoint) ConvertEarnEventDataToOEarnPointSuccessEvent(earnData models.EarnPointOrderEvent) models.EarnPointOrderEvent {
+func (a AdapterOrderPoint) ConvertEarnEventDataToOEarnPointSuccessEvent(earnData *models.EarnPointOrderEvent) models.EarnPointOrderEvent {
 	return models.EarnPointOrderEvent{
 		TransactionID:   earnData.TransactionID,
 		ReferenceCode:   earnData.ReferenceCode,

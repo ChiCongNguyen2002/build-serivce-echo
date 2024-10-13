@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"BuildService/common/logger"
-	"BuildService/common/mongodb"
-	"BuildService/config"
+	"build-service/common/logger"
+	"build-service/common/mongodb"
+	"build-service/config"
 	"context"
 )
 

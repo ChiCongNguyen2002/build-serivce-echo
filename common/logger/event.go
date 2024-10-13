@@ -3,9 +3,10 @@ package logger
 import (
 	"context"
 	"fmt"
-	"github.com/rs/zerolog"
 	"net"
 	"time"
+
+	"github.com/rs/zerolog"
 )
 
 type Event struct {
